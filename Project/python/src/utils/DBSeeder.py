@@ -35,11 +35,11 @@ class DBSeeder(object):
 
             sess = Session()
             ServiceRequest.metadata.create_all(engine)
-            for row in csv_reader:
-
+            bulk = []
+            for idx,row in enumerate(csv_reader):
                 sRequest = ServiceRequest(SRNumber = row[0],\
-                  CreatedDate = row[1],\
-                  UpdatedDate = row[2],\
+                  CreatedDate = row[1] or None,\
+                  UpdatedDate = row[2] or None,\
                   ActionTaken = row[3],\
                   Owner = row[4],\
                   RequestType = row[5],\
@@ -48,30 +48,39 @@ class DBSeeder(object):
                   MobileOS = row[8],\
                   Anonymous = row[9],\
                   AssignTo = row[10],\
-                  ServiceDate = row[11],\
-                  ClosedDate = row[12],\
+                  ServiceDate = row[11] or None,\
+                  ClosedDate = row[12] or None,\
                   AddressVerified = row[13],\
                   ApproximateAddress = row[14],\
                   Address = row[15],\
-                  HouseNumber = row[16],\
+                  HouseNumber = row[16] or None,\
                   Direction = row[17],\
                   StreetName = row[18],\
                   Suffix = row[19],\
-                  ZipCode = row[20],\
-                  Lattitude = row[21],\
-                  Longitude = row[22],\
+                  ZipCode = row[20] or None,\
+                  Lattitude = row[21] or None,\
+                  Longitude = row[22] or None,\
                   Location = row[23],\
-                  TBMPage = row[24],\
+                  TBMPage = row[24] or None,\
                   TBMColumn = row[25],\
-                  TBMRow = row[26],\
+                  TBMRow = row[26] or None,\
                   APC = row[27],\
-                  CD = row[28],\
+                  CD = row[28] or None,\
                   CDMember = row[29],\
-                  NC = row[30],\
+                  NC = row[30] or None,\
                   NCName = row[31],\
                   PolicePrecinct = row[32])
-                sess.add(sRequest)
-                sess.commit()
+                bulk.append(sRequest)
+                #sess.add(sRequest)
+                if idx % 1000 == 0:
+                    sess.bulk_save_objects(bulk)
+                    sess.commit()
+                    sess.flush()
+                    print(str(idx) + ".")
+                    bulk = []
+
+            sess.bulk_save_objects(bulk)
+            sess.commit()
             sess.close()
 
 
@@ -85,5 +94,6 @@ class DBSeeder(object):
 
 
 if __name__ == "__main__":
-    seeder = DBSeeder(connection_string="postgresql://311-user:311-data-is-rad@localhost:5432/311-user")
-    seeder.load_from_csv("/home/russell/Downloads/MyLA311_Service_Request_Data_2018.csv", "2017_dataset_trimmed")
+    import os
+    seeder = DBSeeder(connection_string="postgresql://REDACTED:REDACTED@localhost:5432/311-user")
+    seeder.load_from_csv(os.path.join("/path/to/data/file","MyLA311_Service_Request_Data_2018.csv"), "2017_dataset_trimmed")

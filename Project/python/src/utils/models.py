@@ -1,5 +1,6 @@
+import datetime
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, DateTime, Float
 from sqlalchemy import create_engine
 
 Base = declarative_base()
@@ -7,8 +8,8 @@ class ServiceRequest(Base):
      __tablename__ = 'service_requests'
      id = Column(Integer, primary_key=True, autoincrement=True)
      SRNumber = Column(String, nullable=True)
-     CreatedDate = Column(String, nullable=True)#DateTime
-     UpdatedDate = Column(String, nullable=True)#DateTime
+     CreatedDate = Column(DateTime, nullable=True)#DateTime
+     UpdatedDate = Column(DateTime, nullable=True)#DateTime
      ActionTaken = Column(String, nullable=True)
      Owner = Column(String, nullable=True)
      RequestType = Column(String, nullable=True)
@@ -17,8 +18,8 @@ class ServiceRequest(Base):
      MobileOS = Column(String, nullable=True)
      Anonymous = Column(String, nullable=True)
      AssignTo = Column(String, nullable=True)
-     ServiceDate = Column(String, nullable=True)#DateTime
-     ClosedDate = Column(String, nullable=True)#DateTime
+     ServiceDate = Column(DateTime, nullable=True)#DateTime
+     ClosedDate = Column(DateTime, nullable=True)#DateTime
      AddressVerified = Column(String, nullable=True)
      ApproximateAddress = Column(String, nullable=True)
      Address = Column(String, nullable=True)
@@ -26,17 +27,17 @@ class ServiceRequest(Base):
      Direction = Column(String, nullable=True)
      StreetName = Column(String, nullable=True)
      Suffix = Column(String, nullable=True)
-     ZipCode = Column(String, nullable=True)
-     Lattitude = Column(String, nullable=True)#Float
-     Longitude = Column(String, nullable=True)#Float
+     ZipCode = Column(Integer, nullable=True)
+     Lattitude = Column(Float, nullable=True)#Float
+     Longitude = Column(Float, nullable=True)#Float
      Location = Column(String, nullable=True)
-     TBMPage = Column(String, nullable=True)
+     TBMPage = Column(Integer, nullable=True)
      TBMColumn = Column(String, nullable=True)
-     TBMRow = Column(String, nullable=True)
+     TBMRow = Column(Integer, nullable=True)
      APC = Column(String, nullable=True)
-     CD = Column(String, nullable=True)
+     CD = Column(Integer, nullable=True)
      CDMember = Column(String, nullable=True)
-     NC = Column(String, nullable=True)
+     NC = Column(Integer, nullable=True)
      NCName = Column(String, nullable=True)
      PolicePrecinct = Column(String, nullable=True)
 
