@@ -23,7 +23,7 @@ class ServiceRequest(Base):
      AddressVerified = Column(String, nullable=True)
      ApproximateAddress = Column(String, nullable=True)
      Address = Column(String, nullable=True)
-     HouseNumber = Column(String, nullable=True)
+     HouseNumber = Column(Integer, nullable=True)
      Direction = Column(String, nullable=True)
      StreetName = Column(String, nullable=True)
      Suffix = Column(String, nullable=True)

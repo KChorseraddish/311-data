@@ -1,4 +1,4 @@
-CREATE VIEW broad_call_volume AS
+CREATE MATERIALIZED VIEW broad_call_volume AS
 SELECT
 COUNT("SRNumber") as CallVolume,
 "NCName",
@@ -12,7 +12,7 @@ GROUP BY "NCName", "RequestType"
 ORDER BY "NCName", CallVolume DESC
 
 
-CREATE VIEW total_calls AS
+CREATE MATERIALIZED VIEW total_calls AS
 SELECT "NCName", SUM(callvolume) as totalcalls FROM broad_call_volume
 GROUP BY "NCName"
 ORDER BY totalcalls DESC;
@@ -34,7 +34,6 @@ HAVING t1."RequestType" = (SELECT tt1."RequestType"
                    )
 ORDER BY count DESC
 
-CREATE INDEX ON SRNumber on service_requests ("SRNumber")
+CREATE INDEX SRNumber on service_requests ("SRNumber")
 CREATE INDEX RequestType on service_requests ("RequestType")
 CREATE INDEX NCName on service_requests ("NCName")
-CREATE INDEX SRNumber on service_requests ("SRNumber")
