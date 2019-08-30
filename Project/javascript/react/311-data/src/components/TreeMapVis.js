@@ -1,7 +1,21 @@
 import React from 'react';
-import {Treemap} from 'react-vis';
+import {Treemap, DiscreteColorLegend} from 'react-vis';
 
 const server = "http://localhost:5000";
+const colorData = [
+        {title: "Dead Animal Removal", color:"#FFB0AA"},
+        {title: "Other",color:"#552900"},
+        {title: "Homeless Encampment",color:"#427A82"},
+        {title: "Single Streetlight Issue",color:"#D4726A"},
+        {title: "Electronic Waste",color:"#69969C"},
+        {title: "Feedback",color:"#82C38D"},
+        {title: "Graffiti Removal",color:"#801D15"},
+        {title: "Multiple Streetlight Issue",color:"#AA4139"},
+        {title: "Metal/Household Appliances",color:"#D49D6A"},
+        {title: "Illegal Dumping Pickup",color:"#804815"},
+        {title: "Bulky Items",color:"#51A35F"},
+        {title: "Report Water Waste",color:"#012E34"}
+    ];
 class TreeMapVis extends React.Component {
   constructor(props){
     super(props);
@@ -55,12 +69,14 @@ class TreeMapVis extends React.Component {
       <button onClick={this.handlePopulateTreeClick}>
         Populate Treemap
       </button>
+      <DiscreteColorLegend
+        items={colorData} />
       <Treemap
         title={'My New Treemap'}
         animation
         colorType={'literal'}
-        width={1920}
-        height={1080}
+        width={1000}
+        height={1000}
         onLeafClick={ x => {
             if (this.state.zoomed){
               this.setState({zoomed: false})

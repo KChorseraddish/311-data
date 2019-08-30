@@ -1,18 +1,18 @@
 class TreeMapper(object):
     def __init__(self, data_repository=None):
         self.color_map = {
-            "Dead Animal Removal":"#0183b9",
-            "Other":"#02fdbc",
-            "Homeless Encampment":"#23ab72",
-            "Single Streetlight Issue":"#23b097",
-            "Electronic Waste":"#c97518",
-            "Feedback":"#3f94ee",
-            "Graffiti Removal":"#843cb9",
-            "Multiple Streetlight Issue":"#fcbac7",
-            "Metal/Household Appliances":"#f33edd",
-            "Illegal Dumping Pickup":"#ab337d",
-            "Bulky Items":"#d6d385",
-            "Report Water Waste":"#8f0a00"
+            "Dead Animal Removal":"#FFB0AA",
+            "Other":"#552900",
+            "Homeless Encampment":"#427A82",
+            "Single Streetlight Issue":"#D4726A",
+            "Electronic Waste":"#69969C",
+            "Feedback":"#82C38D",
+            "Graffiti Removal":"#801D15",
+            "Multiple Streetlight Issue":"#AA4139",
+            "Metal/Household Appliances":"#D49D6A",
+            "Illegal Dumping Pickup":"#804815",
+            "Bulky Items":"#51A35F",
+            "Report Water Waste":"#012E34"
         }
         self.data_reepository = data_repository
         pass
