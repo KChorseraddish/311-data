@@ -1,25 +1,12 @@
 import React from 'react';
 import {Treemap, DiscreteColorLegend} from 'react-vis';
+import "./TreeMapVis.css"
 
 const server = "http://localhost:5000";
-const colorData = [
-        {title: "Dead Animal Removal", color:"#FFB0AA"},
-        {title: "Other",color:"#552900"},
-        {title: "Homeless Encampment",color:"#427A82"},
-        {title: "Single Streetlight Issue",color:"#D4726A"},
-        {title: "Electronic Waste",color:"#69969C"},
-        {title: "Feedback",color:"#82C38D"},
-        {title: "Graffiti Removal",color:"#801D15"},
-        {title: "Multiple Streetlight Issue",color:"#AA4139"},
-        {title: "Metal/Household Appliances",color:"#D49D6A"},
-        {title: "Illegal Dumping Pickup",color:"#804815"},
-        {title: "Bulky Items",color:"#51A35F"},
-        {title: "Report Water Waste",color:"#012E34"}
-    ];
 class TreeMapVis extends React.Component {
   constructor(props){
     super(props);
-    this.state = {dataset: {}, zoomed: false}
+    this.state = {dataset: {}, zoomed: false, hoveredItem: '', callVolume:''}
   }
 
   componentWillMount = () => {
@@ -65,29 +52,38 @@ class TreeMapVis extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="TreeMapVis">
       <button onClick={this.handlePopulateTreeClick}>
         Populate Treemap
       </button>
-      <DiscreteColorLegend
-        items={colorData} />
+      <br/>
+      Item: {this.state.hoveredItem}
+      <br/>
+      Call Volume: {this.state.callVolume}
       <Treemap
         title={'My New Treemap'}
         animation
         colorType={'literal'}
-        width={1000}
-        height={1000}
+        width={1550}
+        height={800}
         onLeafClick={ x => {
             if (this.state.zoomed){
-              this.setState({zoomed: false})
+              this.setState({
+                zoomed: false,
+                hoveredItem: '',
+                callVolume: '' })
               this.handlePopulateTreeClick()
             } else {
             this.handleNCZoom(x.data.title);
+            this.setState({
+              hoveredItem: '',
+              callVolume: '' })
           }
           }
         }
         onLeafMouseOver={ x => {
-          console.log(x.data.title);
+          this.setState({hoveredItem: x.data.title, callVolume: x.data.size});
+          console.log(x.data.title + " Call Volume: " + x.data.size);
           }
         }
         data={this.state.dataset}
